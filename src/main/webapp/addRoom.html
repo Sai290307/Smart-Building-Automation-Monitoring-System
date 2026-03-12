@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Room Entry | SmartBuild Sync Hub</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    <style>
+      body {
+        background-color: #f4f6f9;
+      }
+      .sidebar {
+        width: 260px;
+        min-height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="d-flex">
+      <!-- SIDEBAR -->
+      <aside class="sidebar bg-dark text-white p-3">
+        <h4 class="fw-bold mb-4">SmartBuild</h4>
+        <ul class="nav nav-pills flex-column gap-2">
+          <li class="nav-item">
+            <a class="nav-link text-white" href="dashboard.html">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="#">Room Entry</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="energyentry.html">Energy</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="Maintenance.html">Maintenance</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="#">Safety</a>
+          </li>
+        </ul>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <div class="flex-grow-1 d-flex flex-column">
+        <!-- NAVBAR -->
+        <nav class="navbar navbar-light bg-white shadow-sm px-4">
+          <span class="navbar-brand fw-bold">Room Details Entry</span>
+        </nav>
+
+        <!-- CONTENT -->
+        <main class="flex-grow-1 p-4">
+          <!-- HEADER -->
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+              <h3 class="fw-bold mb-1">Room Details Entry</h3>
+              <p class="text-muted mb-0">
+                Add or update room information in the building
+              </p>
+            </div>
+            <a
+              href="dashboard.html"
+              class="text-decoration-none d-flex align-items-center gap-1"
+            >
+              <i data-feather="arrow-left"></i> Back to Dashboard
+            </a>
+          </div>
+
+          <!-- FORM CARD -->
+          <div class="card shadow-sm border-0">
+            <div class="card-body">
+              <form
+  id="roomForm"
+  class="row g-3"
+  method="post"
+  action="addRoom"
+>
+  <div class="col-md-6">
+    <label class="form-label">Room Number *</label>
+    <input
+      type="text"
+      class="form-control"
+      name="room_number" 
+      required
+    />
+  </div>
+
+  <div class="col-md-6">
+    <label class="form-label">Room Type *</label>
+    <select class="form-select" name="room_type" required> <!-- updated -->
+      <option value="">Select type</option>
+      <option>Office</option>
+      <option>Conference Room</option>
+      <option>Restroom</option>
+      <option>Storage</option>
+      <option>Other</option>
+    </select>
+  </div>
+
+  <div class="col-md-6">
+    <label class="form-label">Floor *</label>
+    <input type="number" class="form-control" name="floor" min="1" max="20" required
+    >
+  </div>
+
+  <div class="col-md-6">
+    <label class="form-label">Capacity</label>
+    <input type="number" class="form-control" name="capacity"  min="1"
+    />
+  </div>
+
+  <div class="col-12">
+    <label class="form-label">Equipment</label>
+    <textarea
+      class="form-control"
+      name="equipment" 
+      rows="2"
+    ></textarea>
+    <div class="form-text">
+      List major equipment separated by commas
+    </div>
+  </div>
+<input type="hidden" name="building_id" value="1" />
+  <div class="col-12">
+    <label class="form-label">Notes</label>
+    <textarea
+      class="form-control"
+      name="notes" 
+      rows="3"
+    ></textarea>
+  </div>
+
+  <div class="col-12 d-flex justify-content-end gap-3 mt-3">
+    <button type="reset" class="btn btn-outline-secondary">
+      Clear
+    </button>
+    <button type="submit" class="btn btn-primary px-4">
+      Save Room
+    </button>
+  </div>
+</form>
+              
+            </div>
+          </div>
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="bg-white border-top text-center py-3 small text-muted">
+          © 2026 SmartBuild Sync Hub — All rights reserved
+        </footer>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      feather.replace();
+    </script>
+  </body>
+</html>

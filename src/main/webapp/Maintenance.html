@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Maintenance Request | SmartBuild Sync Hub</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Feather Icons -->
+  <script src="https://unpkg.com/feather-icons"></script>
+
+  <!-- script.js placeholder (kept intact) -->
+  <script src="script.js"></script>
+
+  <style>
+    /* -------------------------------------------
+       SMART BUILDING UI — matches dashboard & landing
+       Glassmorphism, gradients, premium cards
+    ------------------------------------------- */
+    body {
+      background: linear-gradient(145deg, #f0f7ff 0%, #e9f2fa 100%);
+      font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
+    }
+
+    /* ----- SIDEBAR – modern, dark gradient (like dashboard) ----- */
+    .smart-sidebar {
+      width: 280px;
+      min-height: 100vh;
+      background: radial-gradient(circle at 20% 30%, #0a2c4b, #02101b);
+      border-right: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 20px 0 40px -15px rgba(0,30,60,0.25);
+      transition: all 0.2s;
+    }
+    .smart-sidebar .nav-link {
+      color: rgba(255,255,255,0.75);
+      border-radius: 16px;
+      padding: 12px 20px;
+      font-weight: 500;
+      letter-spacing: -0.2px;
+      transition: 0.2s;
+      margin-bottom: 4px;
+    }
+    .smart-sidebar .nav-link:hover {
+      background: rgba(13,110,253,0.3);
+      color: white;
+      backdrop-filter: blur(10px);
+    }
+    .smart-sidebar .nav-link.active {
+      background: linear-gradient(95deg, #0d6efd, #6f42c1);
+      color: white;
+      box-shadow: 0 8px 20px -8px #0d6efd;
+    }
+    .sidebar-brand {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      background: linear-gradient(145deg, #fff, #c7e0ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 2px 10px rgba(13,110,253,0.3);
+      margin-bottom: 35px;
+    }
+
+    /* ----- MAIN PANEL – glass, rounded ----- */
+    .main-flex {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: transparent;
+    }
+
+    /* ----- NAVBAR – glass, floating (like dashboard) ----- */
+    .smart-navbar {
+      background: rgba(255,255,255,0.75) !important;
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,0.5);
+      box-shadow: 0 10px 35px -10px rgba(0,60,130,0.08);
+      padding: 12px 28px;
+      margin: 20px 30px 0 30px;
+      border-radius: 60px;
+    }
+    .smart-navbar .navbar-brand {
+      font-weight: 700;
+      color: #0a2c4b;
+      font-size: 1.75rem;
+    }
+    .btn-back {
+      background: rgba(255,255,255,0.3);
+      backdrop-filter: blur(8px);
+      padding: 12px 24px;
+      border-radius: 40px;
+      color: #0a2c4b;
+      font-weight: 600;
+      border: 1px solid rgba(255,255,255,0.6);
+      transition: 0.2s;
+    }
+    .btn-back:hover {
+      background: white;
+      border-color: #0d6efd;
+      color: #0d6efd;
+      transform: translateX(-5px);
+    }
+
+    /* ----- MAIN CARD – glass premium (form container) ----- */
+    .glass-card-premium {
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.7);
+      border-radius: 36px;
+      box-shadow: 0 25px 45px -18px rgba(13,110,253,0.2);
+      padding: 36px;
+      transition: 0.2s;
+    }
+    .glass-card-premium:hover {
+      background: rgba(255,255,255,0.95);
+      border-color: rgba(13,110,253,0.3);
+    }
+
+    /* ----- FORM CONTROLS – modern, floating, refined ----- */
+    .form-label {
+      font-weight: 600;
+      color: #1a3a5f;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+      letter-spacing: 0.3px;
+    }
+    .form-control, .form-select {
+      background: rgba(255,255,255,0.9);
+      border: 1.5px solid rgba(13,110,253,0.1);
+      border-radius: 20px;
+      padding: 12px 18px;
+      font-size: 0.98rem;
+      transition: 0.15s;
+      box-shadow: inset 0 2px 5px rgba(0,0,0,0.01);
+    }
+    .form-control:focus, .form-select:focus {
+      border-color: #0d6efd;
+      box-shadow: 0 0 0 5px rgba(13,110,253,0.1);
+      background: white;
+    }
+
+    /* ----- FILE UPLOAD – smart dashed zone ----- */
+    .upload-smart {
+      background: rgba(13,110,253,0.03);
+      border: 2px dashed rgba(13,110,253,0.3);
+      border-radius: 24px;
+      padding: 32px 24px;
+      text-align: center;
+      transition: 0.2s;
+    }
+    .upload-smart:hover {
+      background: rgba(13,110,253,0.06);
+      border-color: #0d6efd;
+    }
+    .upload-smart i {
+      color: #0d6efd;
+    }
+
+    /* ----- BUTTONS – gradient, smooth ----- */
+    .btn-clear {
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 40px;
+      padding: 14px 36px;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+    .btn-clear:hover {
+      background: white;
+      border-color: #6c757d;
+    }
+    .btn-submit {
+      background: linear-gradient(145deg, #0d6efd, #6f42c1);
+      border: none;
+      border-radius: 40px;
+      padding: 14px 42px;
+      font-weight: 700;
+      box-shadow: 0 12px 25px -8px #0d6efd;
+      transition: 0.2s;
+      color: white;
+    }
+    .btn-submit:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 35px -8px #0d6efd;
+      background: linear-gradient(145deg, #0b5ed7, #5e3ea1);
+    }
+
+    /* ----- FOOTER – glass, matching dashboard ----- */
+    .smart-footer {
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(255,255,255,0.8);
+      color: #1e3b5a;
+      padding: 16px 0;
+      margin: 0 30px 20px 30px;
+      border-radius: 60px;
+      font-weight: 500;
+    }
+
+    /* ----- feather icons ----- */
+    i.feather {
+      stroke-width: 1.8;
+    }
+
+    /* ----- small tweaks ----- */
+    .text-primary-smart {
+      color: #0a2c4b;
+    }
+    .required-star {
+      color: #dc3545;
+      margin-left: 3px;
+    }
+    .back-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="d-flex">
+
+  <!-- ===== SIDEBAR – SMART BUILDING (matches dashboard) ===== -->
+  <aside class="smart-sidebar text-white p-4">
+    <div class="sidebar-brand d-flex align-items-center gap-2">
+      <i data-feather="cpu" style="width:36px;height:36px; stroke-width:1.5;"></i>
+      <span>SmartCore</span>
+    </div>
+    <ul class="nav flex-column mt-4">
+      <li class="nav-item">
+        <a class="nav-link" href="dashboard.html">
+          <i data-feather="grid" class="me-2"></i> Dashboard
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="energyentry.html">
+          <i data-feather="zap" class="me-2"></i> Energy Entry
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="#">
+          <i data-feather="tool" class="me-2"></i> Maintenance
+        </a>
+      </li>
+    </ul>
+    <div class="mt-auto pt-5 small text-white-50">
+      <hr class="opacity-25">
+      <span><i data-feather="bar-chart-2" style="width:16px;"></i> v4.0 · live</span>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN FLEX ===== -->
+  <div class="main-flex">
+
+    <!-- ===== NAVBAR – GLASS, PREMIUM (matches dashboard) ===== -->
+    <nav class="navbar smart-navbar">
+      <div class="container-fluid px-2">
+        <span class="navbar-brand fw-bold">
+          <i data-feather="alert-circle" class="me-2 text-primary" style="width:28px;"></i> Maintenance Request
+        </span>
+        <div class="ms-auto d-flex align-items-center">
+          <a href="dashboard.html" class="btn-back d-flex align-items-center text-decoration-none">
+            <i data-feather="arrow-left" style="width:20px;"></i> Back to Dashboard
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="flex-grow-1 p-4">
+
+      <!-- HEADER (subtle, modern) -->
+      <div class="d-flex justify-content-between align-items-center mb-4 px-2">
+        <div>
+          <h3 class="fw-bold mb-1" style="color: #0a2c4b;">Report an Issue</h3>
+          <p class="text-secondary-emphasis mb-0 fw-semibold" style="opacity:0.8;">
+            <i data-feather="info" style="width:16px;"></i> Smart diagnostics will prioritize your request
+          </p>
+        </div>
+        <span class="badge bg-primary bg-opacity-15 text-dark px-4 py-2 rounded-pill">
+          <i data-feather="radio" class="me-1" style="width:16px;"></i> live sync
+        </span>
+      </div>
+
+      <!-- ===== FORM CARD – GLASS, PREMIUM (attributes 100% intact) ===== -->
+      <div class="glass-card-premium">
+        <form id="maintenanceForm" class="row g-4" method="post" action="addMaintenance" enctype="multipart/form-data">
+
+          <!-- Room / Location -->
+          <div class="col-md-6">
+            <label class="form-label">
+              Room / Location <span class="required-star">*</span>
+            </label>
+            <select class="form-select" name="location" required>
+              <option value="" selected disabled>— Select location —</option>
+              <option>101 - Office</option>
+              <option>102 - Office</option>
+              <option>201 - Conference Room</option>
+              <option>202 - Conference Room</option>
+              <option>Main Lobby</option>
+              <option>Restroom 1F</option>
+              <option>Restroom 2F</option>
+              <option>Other Area</option>
+            </select>
+          </div>
+
+          <!-- Issue Type -->
+          <div class="col-md-6">
+            <label class="form-label">
+              Issue Type <span class="required-star">*</span>
+            </label>
+            <select class="form-select" name="issue_type" required>
+              <option value="" selected disabled>— Select type —</option>
+              <option>Electrical</option>
+              <option>Plumbing</option>
+              <option>HVAC</option>
+              <option>Furniture</option>
+              <option>Cleaning</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <!-- Priority -->
+          <div class="col-md-6">
+            <label class="form-label">
+              Priority <span class="required-star">*</span>
+            </label>
+            <select class="form-select" name="priority" required>
+              <option value="" selected disabled>— Select priority —</option>
+              <option>Low</option>
+              <option>Medium</option>
+              <option>High</option>
+              <option>Emergency</option>
+            </select>
+          </div>
+
+          <!-- Reported By -->
+          <div class="col-md-6">
+            <label class="form-label">
+              Reported By <span class="required-star">*</span>
+            </label>
+            <input type="text" class="form-control" name="reported_by" placeholder="e.g. John Miller" required>
+          </div>
+
+          <!-- Issue Description -->
+          <div class="col-12">
+            <label class="form-label">
+              Issue Description <span class="required-star">*</span>
+            </label>
+            <textarea class="form-control" name="description" rows="4" placeholder="Describe the issue in detail..."></textarea>
+          </div>
+
+          <!-- Upload Photos (Original: name="photos" multiple) -->
+          <div class="col-12">
+            <label class="form-label">Upload Photos (Optional)</label>
+            <div class="upload-smart">
+              <i data-feather="camera" style="width:36px; height:36px;" class="mb-2"></i>
+              <p class="mb-2 fw-semibold">Drag & drop or click to upload</p>
+              <input type="file" class="form-control" name="photos" multiple style="border: none; background: transparent; padding: 0; color: #0d6efd;">
+              <small class="text-muted mt-2 d-block">Supports: JPG, PNG, HEIC (max 10MB)</small>
+            </div>
+          </div>
+
+          <!-- Buttons (Clear / Submit) - original actions preserved -->
+          <div class="col-12 d-flex justify-content-end gap-4 mt-4">
+            <button type="reset" class="btn btn-clear">
+              <i data-feather="x" style="width:18px; margin-right:6px;"></i> Clear
+            </button>
+            <button type="submit" class="btn btn-submit">
+              <i data-feather="check-circle" style="width:18px; margin-right:8px;"></i> Submit Request
+            </button>
+          </div>
+        </form>
+
+        <!-- Message display (exactly as original, id unchanged) -->
+        <div id="formMessage" class="mt-4"></div>
+
+      </div> <!-- end glass card -->
+
+    </main>
+
+    <!-- ===== FOOTER – glass, matching dashboard ===== -->
+    <footer class="smart-footer text-center small fw-semibold">
+      © 2026 SmartBuild Sync Hub — secure · connected · smart
+    </footer>
+
+  </div> <!-- end main-flex -->
+
+</div> <!-- end d-flex -->
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Feather Icons - init -->
+<script>
+  feather.replace({ strokeWidth: 1.8 });
+</script>
+</body>
+</html>
